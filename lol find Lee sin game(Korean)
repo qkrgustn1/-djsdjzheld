@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+int main(void) {
+    srand(time(NULL));
+    int bush = rand() % 10;
+    printf("\n\n <> 리신 찾기 게임 <> \n\n");
+    int nshowbush = 0;
+    int mshowbush = 0;
+    for (int i = 1; i <= 5; i++) {
+        int bushes[10] = { 0,0,0,0,0,0,0,0,0,0 };
+        do {
+            nshowbush = rand() % 2 + 4;
+        } while (nshowbush == mshowbush);
+        mshowbush = nshowbush;
+        printf("> %d번째 궁극기 : ", i);
+        int reflected = 0;
+        for (int j = 0; j < nshowbush; j++) {
+            int randbush;
+            do {
+                randbush = rand() % 10;
+            } while (bushes[randbush] == 1);
+            bushes[randbush] = 1;
+            if (randbush == bush) {
+                reflected = 1;
+            }
+        }
+        for (int k = 0; k < 10; k++) {
+            if (bushes[k] == 1) {
+                printf("%d", k + 1);
+                printf("번 부쉬를 향해 럭스가 궁극기를 사용합니다.\n\n");
+            }
+        }
+        if (reflected == 1) {
+            printf(">> 성공! 럭스의 궁극기가 반사되었어요!\n");
+        }
+        else {
+            printf(">> 실패! 부쉬에 아무도 없었어요. ㅠㅠ\n");
+        }
+        printf("\n    계속하려면 Enter를 누르세요.\n");
+        (void)getchar();
+    }
+    printf("\n\n리신이있는 부쉬는 어디일까요?");
+    int answer;
+    scanf_s("%d", &answer);
+    if (answer == bush + 1) {
+        printf("\n>> 정답입니다!\n");
+    }
+    else {
+        printf("\n>> 땡! 틀렸어요. 정답은 %d번 부쉬입니다.\n", bush + 1);
+    }
+    return 0;
+}
